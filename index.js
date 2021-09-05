@@ -23,7 +23,7 @@ function update() {
     db.collection('todos').get().then((snapshot) => {
         result = [];
         snapshot.forEach((doc) => {
-            result.push({id: doc.id, name: doc.data().name, done: doc.data().done })
+            result.push({ id: doc.id, name: doc.data().name, done: doc.data().done })
         });
     });
 }
@@ -32,7 +32,6 @@ update();
 
 app.get('/', async (req, res) => {
     let html = await ejs.renderFile('./todos.ejs', { todos: result });
-    console.log(html);
     res.send(html);
 });
 
@@ -42,7 +41,6 @@ app.get('/update', (req, res) => {
 });
 
 app.post('/toggle', (req, res) => {
-    console.log("toggle clicked", req.body);
     result = result.map((item) => {
         if (item.id === req.body.id) {
             item.done = !item.done;
@@ -53,9 +51,14 @@ app.post('/toggle', (req, res) => {
     res.send(`done`);
 });
 
-app.post('/newItem', (req, res) => {
-    console.log("toggle clicked", req.body);
-    //result = result.push({name = req.body.name, done = false})
+app.post('/newItem', async (req, res) => {
+    await db.collection('todos').add(
+        {
+            name : req.body.name,
+            done : false
+        }
+    );
+    update();
     res.send(`done`);
 });
 

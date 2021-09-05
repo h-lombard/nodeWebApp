@@ -4,27 +4,10 @@
 <head>
     <title>Todos to do</title>
 </head>
-<style>
-    #todoItem {
-        list-style: none;
-        width: 100%;
-        height: 90px;
-        margin: 0;
-        padding: 0;
-        white-space: nowrap;
-        overflow-x: auto;
-    }
-
-    #todoItem>li {
-        display: inline-block;
-        width: 50%;
-        height: 100%;
-        background-color: red;
-    }
-</style>
 
 <body>
     <h1>My Todos</h1>
+    <hr style="height:2px;border-width:0;color:black;background-color:gray">
     <ul>
         <% todos.forEach(function(todo){ %>
             <li>
@@ -32,7 +15,7 @@
                     <%= todo.name %>
                 </p>
                 <p>
-                    <%= todo.done %>
+                    Done: <%= todo.done %>
                 </p>
                 <p>
                     <button
@@ -43,13 +26,17 @@
                 </p>
             </li>
     </ul>
-    <form action="/action_page.php">
+    <hr style="height:2px;border-width:0;color:black;background-color:gray">
+    <p>
         <label for="newName">New item name:</label>
         <input type="text" id="newName" name="fname"><br><br>
-        <input type="submit" value="Submit" onclick="fetch('/newItem', {method: 'POST', 
+        <button
+            onclick="fetch('/newItem', {method: 'POST', 
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(this.Text).then(() => window.location.reload());">
-    </form>
+        body: JSON.stringify({name: document.getElementById('newName').value})}).then(() => window.location.reload());">
+            Create new item </button>
+    </p>
 </body>
+
 
 </html>

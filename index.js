@@ -1,7 +1,7 @@
 const express = require('express');
 const admin = require('firebase-admin');
 const bodyParser = require("body-parser");
-const serviceAccount = require('./randomapp-325107-a86731b2df17.json');
+//const serviceAccount = require('./randomapp-325107-a86731b2df17.json');
 let ejs = require('ejs');
 
 const app = express();
@@ -9,11 +9,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
+//admin.initializeApp({
+//    credential: admin.credential.cert(serviceAccount)
+//});
 
-//admin.initializeApp();
+admin.initializeApp();
 
 const db = admin.firestore();
 

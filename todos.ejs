@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <title>Todos to do</title>
+</head>
+<style>
+    #todoItem {
+        list-style: none;
+        width: 100%;
+        height: 90px;
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    
+    #todoItem > li {
+        display: inline-block;
+        width: 50%;
+        height: 100%;
+        background-color: red;
+    }
+</style>
+<body>
+    <h1>My Todos</h1>
+    <ul>
+        <% todos.forEach(function(todo){ %>
+            <li>
+                <ul id="todoItem">
+                    <li><%= todo.name %></li>
+                </ul>
+                
+            </li>
+            <li>
+                <%= todo.done %>
+            </li>
+            <button
+                onclick="fetch('/toggle', {method: 'POST', 
+                                           headers: {'Content-Type': 'application/json'},
+                                           body: JSON.stringify({id: '<%= todo.id %>'})}).then(() => window.location.reload());">Toggle</button>
+            <% }); %>
+    </ul>
+</body>
+
+</html>

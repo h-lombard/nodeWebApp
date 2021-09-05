@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    
+
 <head>
     <title>Todos to do</title>
 </head>
@@ -13,35 +13,43 @@
         padding: 0;
         white-space: nowrap;
         overflow-x: auto;
-        overflow-y: hidden;
     }
-    
-    #todoItem > li {
+
+    #todoItem>li {
         display: inline-block;
         width: 50%;
         height: 100%;
         background-color: red;
     }
 </style>
+
 <body>
     <h1>My Todos</h1>
     <ul>
         <% todos.forEach(function(todo){ %>
             <li>
-                <ul id="todoItem">
-                    <li><%= todo.name %></li>
-                </ul>
-                
-            </li>
-            <li>
-                <%= todo.done %>
-            </li>
-            <button
-                onclick="fetch('/toggle', {method: 'POST', 
+                <p>
+                    <%= todo.name %>
+                </p>
+                <p>
+                    <%= todo.done %>
+                </p>
+                <p>
+                    <button
+                        onclick="fetch('/toggle', {method: 'POST', 
                                            headers: {'Content-Type': 'application/json'},
                                            body: JSON.stringify({id: '<%= todo.id %>'})}).then(() => window.location.reload());">Toggle</button>
-            <% }); %>
+                    <% }); %>
+                </p>
+            </li>
     </ul>
+    <form action="/action_page.php">
+        <label for="newName">New item name:</label>
+        <input type="text" id="newName" name="fname"><br><br>
+        <input type="submit" value="Submit" onclick="fetch('/newItem', {method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(this.Text).then(() => window.location.reload());">
+    </form>
 </body>
 
 </html>

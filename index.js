@@ -53,6 +53,12 @@ app.post('/toggle', (req, res) => {
     res.send(`done`);
 });
 
+app.post('/newItem', (req, res) => {
+    console.log("toggle clicked", req.body);
+    //result = result.push({name = req.body.name, done = false})
+    res.send(`done`);
+});
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`webapp: listening on port ${port}`);
